@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import movies from "../reducers/movies";
+import MovieCard from './MovieCard';
 
-const MoviesList = props => {
+const MoviesList = ({ movies }) => {
     const emptyMessage = (
         <p>There are no movies yet!</p>
     );
 
     const moviesList = (
         <div>
-            Burası hazırlanacak!
+            { movies.error.response ? <h3>Error retrieving data!</h3> : movies.movies.map(movie => <MovieCard movie={movie} key={movie._id} />) }
         </div>
     )
 
@@ -17,8 +17,8 @@ const MoviesList = props => {
         <div>
             { movies.length === 0 ? emptyMessage : moviesList }
         </div>
-    )
-}
+    );
+};
 
 MoviesList.propTypes = {
     movies: PropTypes.shape({
